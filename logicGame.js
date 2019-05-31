@@ -1,3 +1,7 @@
+if (WEBGL.isWebGLAvailable() === false) {
+    document.body.appendChild(WEBGL.getWebGLErrorMessage());
+}
+
 var start = false;
 var typeStartShip = 0;
 
