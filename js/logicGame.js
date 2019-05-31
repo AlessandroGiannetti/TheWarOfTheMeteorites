@@ -151,7 +151,7 @@ function loadModel(url) {
     );
 }
 
-loadModel("models/enemy.json");
+//loadModel("models/enemy.json");
 
 var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3);
 scene.add(ambientLight);
@@ -177,7 +177,6 @@ var update = function () {
 
     if (start === true) {
         if (modelLoaded === true) {
-
             camera.position.x = mouseX * 0.002;
             camera.position.y = (-mouseY) * 0.003;
             starShip.position.x = mouseX * 0.008;
