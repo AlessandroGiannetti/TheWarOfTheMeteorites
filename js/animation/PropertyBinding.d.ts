@@ -1,0 +1,48 @@
+export class PropertyBinding {
+
+    path: string;
+    parsedPath: any;
+    node: any;
+    rootNode: any;
+    BindingType: { [bindingType: string]: number };
+    Versioning: { [versioning: string]: number };
+    GetterByBindingType: Function[];
+    SetterByBindingTypeAndVersioning: Array<Function[]>;
+
+    constructor(rootNode: any, path: string, parsedPath?: any);
+
+    static create(
+        root: any,
+        path: any,
+        parsedPath?: any
+    ): PropertyBinding | PropertyBinding.Composite;
+
+    static parseTrackName(trackName: string): any;
+
+    static findNode(root: any, nodeName: string): any;
+
+    getValue(targetArray: any, offset: number): any;
+
+    setValue(sourceArray: any, offset: number): void;
+
+    bind(): void;
+
+    unbind(): void;
+
+}
+
+export namespace PropertyBinding {
+    export class Composite {
+
+        constructor(targetGroup: any, path: any, parsedPath?: any);
+
+        getValue(array: any, offset: number): any;
+
+        setValue(array: any, offset: number): void;
+
+        bind(): void;
+
+        unbind(): void;
+
+    }
+}

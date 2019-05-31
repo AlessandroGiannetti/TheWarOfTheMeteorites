@@ -1,0 +1,47 @@
+body {
+    /* prevent white margin */
+    margin: 0;
+
+    /* hide scrollbars */
+    overflow: hidden;
+}
+
+#progress, #start {
+    position: absolute;
+    top: 10px;
+    right: 80px;
+    width: 50px;
+    height: 30px;
+    bottom: 10px;
+    z-index: 10000;
+}
+
+#ship1 {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 500px;
+    width: 100px;
+    height: 100px;
+    z-index: 10000;
+}
+
+#ship2 {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 700px;
+    width: 100px;
+    height: 100px;
+    z-index: 10000;
+}
+
+#ship3 {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 900px;
+    width: 100px;
+    height: 100px;
+    z-index: 10000;
+}
