@@ -48,15 +48,18 @@ function switchShip(type) {
     script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';
     document.head.appendChild(script);
 })();*/
+var camera, controls, scene, renderer;
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+scene = new THREE.Scene();
 
-var renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer({antialias: true});
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-
 document.body.appendChild(renderer.domElement);
 
+camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+// gestione eventi
 window.addEventListener('resize', function () {
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -65,10 +68,8 @@ window.addEventListener('resize', function () {
     camera.updateProjectionMatrix();
 });
 
-// gestione eventi
 document.addEventListener("keydown", onDocumentKeyDown, false);
 document.addEventListener("keyup", onDocumentKeyUp, false);
-
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
     if (keyCode === 32) {
@@ -81,7 +82,6 @@ function onDocumentKeyDown(event) {
         pause = true;
     }
 }
-
 function onDocumentKeyUp(event) {
     var keyCode = event.which;
     if (keyCode === 32) {
