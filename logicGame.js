@@ -1,12 +1,17 @@
 if (WEBGL.isWebGLAvailable() === false) {
     document.body.appendChild(WEBGL.getWebGLErrorMessage());
 }
-
+// main menu functions control
 var start = false;
 var typeStartShip = 0;
 
-function STARTGAME() {
+
+function startGame() {
     start = !start;
+    if (start === true)
+        document.getElementById("mainMenu").style.display = "none";
+    else
+        document.getElementById("mainMenu").style.display = "block";
     controls.reset();
     controls.enabled = false;
     switch (typeStartShip) {
@@ -22,24 +27,50 @@ function STARTGAME() {
     }
 }
 
+function returnMenu() {
+    start = false;
+    scene.remove(starShip);
+    loadModel("star-wars-vader-tie-fighter");
+    controls.enabled = true;
+    document.getElementById("secondMenu").style.display = "none";
+    document.getElementById("mainMenu").style.display = "block";
+
+    // button starShip underline
+    var elem = document.getElementsByClassName("ship");
+    for (var i = 0; i < elem.length; i++)
+        elem[i].style.textDecoration = "none";
+    document.getElementById("0").style.textDecoration = "underline";
+    // ==========================
+}
+
 function switchShip(type) {
+    // button starShip underline
+    var elem = document.getElementsByClassName("ship");
+    for (var i = 0; i < elem.length; i++)
+        elem[i].style.textDecoration = "none";
+    document.getElementById(type).style.textDecoration = "underline";
+    // ==========================
+
     typeStartShip = type;
     scene.remove(starShip);
     if (type === 0) {
         loadModel("star-wars-vader-tie-fighter");
-        //camera.position.z = 2;
+        camera.position.z = 5;
     }
-    /* if (type === 1) {
-         loadModel("models/star-wars-x-wing.json");
+    if (type === 1) {
+        loadModel("x-wing");
          camera.position.z = 10;
      }
      if (type === 2) {
-         loadModel("./models/star-wars-vader-tie-fighter.babylon");
+         loadModel("star-wars-arc-170-pbr");
          camera.position.z = 15;
-     }*/
+     }
 }
 
-/*(function () {
+//=============================================================================
+
+// FPS UI
+(function () {
     var script = document.createElement('script');
     script.onload = function () {
         var stats = new Stats();
@@ -51,11 +82,13 @@ function switchShip(type) {
     };
     script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';
     document.head.appendChild(script);
-})();*/
+})();
+//============================================================================
+
 var camera, controls, scene, renderer;
-
+var width = window.innerWidth;
+var height = window.innerHeight;
 scene = new THREE.Scene();
-
 renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -63,35 +96,37 @@ document.body.appendChild(renderer.domElement);
 
 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 
-// gestione eventi
+// event listener
 window.addEventListener('resize', function () {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
     renderer.setSize(width, height);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 });
 
-document.addEventListener("keydown", onDocumentKeyDown, false);
-document.addEventListener("keyup", onDocumentKeyUp, false);
-function onDocumentKeyDown(event) {
+document.addEventListener("keydown", function (event) {
     var keyCode = event.which;
     if (keyCode === 32) {
         turbo = true;
     }
-    if (keyCode === 79) {
-        pause = false;
+    if (keyCode === 27) {
+        pause = !pause;
+        if (pause === true)
+            document.getElementById("secondMenu").style.display = "block";
+        else
+            document.getElementById("secondMenu").style.display = "none";
     }
-    if (keyCode === 80) {
-        pause = true;
-    }
-}
-function onDocumentKeyUp(event) {
+}, false);
+document.addEventListener("keyup", function (event) {
     var keyCode = event.which;
     if (keyCode === 32) {
         turbo = false;
     }
-}
+}, false);
+document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX - width / 2;
+    mouseY = e.clientY - height / 2
+}, false);
+//===================================================================================================
 
 controls = new THREE.OrbitControls(camera, renderer.domElement);
 var stars = [];
@@ -153,6 +188,8 @@ function loadModel(name) {
     // END Clara.io JSON loader code
 }
 
+loadModel("star-wars-vader-tie-fighter");
+
 var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3);
 scene.add(ambientLight);
 
@@ -164,18 +201,7 @@ var mouseY = 0;
 var rot = 1;
 
 var update = function () {
-
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-    document.addEventListener('mousemove', onMouseMove, false);
-
-    function onMouseMove(e) {
-        mouseX = e.clientX - width / 2;
-        mouseY = e.clientY - height / 2
-    }
-
-    if (start === true) {
+    if (start === true && pause === false) {
         if (modelLoaded === true) {
             camera.position.x = mouseX * 0.002;
             camera.position.y = (-mouseY) * 0.003;
@@ -201,7 +227,7 @@ var update = function () {
                 if (star.position.z > 1000) star.position.z = -1000;
             }
         }
-    } else {
+    } else if (start === false) {
         controls.autoRotate = true;
         controls.update();
     }

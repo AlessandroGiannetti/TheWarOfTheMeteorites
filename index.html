@@ -16,10 +16,35 @@
 <script src="./js/WebGL.js"></script>
 <script src="./logicGame.js"></script>
 
-<button id="ship3" onclick="switchShip(2)" type="button">Incrociatore</button>
-<button id="ship1" onclick="switchShip(1)" type="button">La repubblica</button>
-<button id="ship2" onclick="switchShip(0)" type="button">Lato Oscuro</button>
-<button id="start" onclick="STARTGAME()" type="button">Start</button>
-
+<div id="secondMenu">
+    <div id="pause">
+        PAUSE
+    </div>
+    <div id="returnMenu">
+        <h1 class="clickable" onclick="returnMenu()" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">Main Menu</h1>
+    </div>
+</div>
+<div id="mainMenu">
+    <div id="title">
+        the war of the meteorites
+    </div>
+    <div id="ship1">
+        <h4 class="ship" id="1" onclick="switchShip(1)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">x - wing</h4>
+    </div>
+    <div id="ship2">
+        <h4 class="ship" id="0" onclick="switchShip(0)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';" style="text-decoration: underline">Tie Fighter</h4>
+    </div>
+    <div id="ship3">
+        <h4 class="ship" id="2" onclick="switchShip(2)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">arc - 170pbr</h4>
+    </div>
+    <div id="start">
+        <h1 class="clickable" onclick="startGame()" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">Play game</h1>
+    </div>
+</div>
 </body>
 </html>
