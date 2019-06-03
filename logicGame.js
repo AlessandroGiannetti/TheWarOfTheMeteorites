@@ -277,20 +277,17 @@ loader.load('./models/texture/steroid.png', function (texture) {
 
 });
 
-
 // =================================================================================================
 
 camera.position.z = 5;
-//game Logic
 
+//game Logic
 lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 30, 2);
 
 function update() {
 
     if (start === true && pause === false) {
         if (modelLoaded === true) {
-            //camera.position.x = mouseX * 0.002;
-            //camera.position.y = (-mouseY) * 0.008;
             spaceShip.position.x = mouseX * 0.008;
             spaceShip.position.y = (-mouseY) * 0.01 + (typeSpaceShip === 0 ? 0 : -5);
             spaceShip.rotation.z = mouseX * (typeSpaceShip === 0 ? 0.0007 : 0.00001);
@@ -303,6 +300,17 @@ function update() {
                     camera.position.z -= 0.2;
             }
 
+            // loop through each star
+            for (var i = 0; i < stars.length; i++) {
+                stars[i].position.z += i / 10;
+
+                if (turbo === true)
+                    stars[i].position.z += i / 10;
+                // if the particle is too close move it to the back
+                if (stars[i].position.z > 1000) stars[i].position.z = -1000;
+            }
+
+
             // go through bullets array and update position
             // remove bullets when appropriate
             for (var index = 0; index < bullets.length; index += 1) {
@@ -312,15 +320,22 @@ function update() {
                     continue;
                 }
                 bullets[index].position.add(bullets[index].velocity);
-
                 // computation of the Euclidian distance for the bullet detection
                 if (asteroid.position.distanceTo(bullets[index].position) <= (0.05 + 5)) {
                     //console.log("take it");
                     score += 0.01;
                     document.getElementById("score").innerHTML = "Score: " + score.toFixed(2);
                     scene.remove(bullets[index]);
+                    bullets[index].alive = false;
+                }
+
+                // if the bullets position on z axis > 1000 ill remove it
+                if (bullets[index].position.z > 1000) {
+                    scene.remove(bullets[index]);
+                    bullets[index].alive = false;
                 }
             }
+
             if (shooting === true) {
                 var geometry = new THREE.SphereBufferGeometry(0.05, 8, 8);
                 var material;
@@ -339,7 +354,6 @@ function update() {
                     bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.8 : 9));
                     lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.7 : 9));
                 }
-
                 sx = !sx;
 
                 // set the velocity of the bullet
@@ -348,33 +362,11 @@ function update() {
                     0,
                     -Math.cos(spaceShip.rotation.z)
                 );
-                // after 1000ms, set alive to false and remove from scene
-                // setting alive to false flags our update code to remove
-                // the bullet from the bullets array
                 bullet.alive = true;
-                setTimeout(function () {
-                    bullet.alive = false;
-                    scene.remove(bullet);
-                }, 2000);
-
                 // add to scene, array, and set the delay to 10 frames
                 scene.add(bullet);
                 bullets.push(bullet);
                 scene.add(lightBullet);
-
-            } else {
-                scene.remove(lightBullet);
-            }
-
-            // loop through each star
-            for (var i = 0; i < stars.length; i++) {
-                star = stars[i];
-                star.position.z += i / 10;
-                if (turbo === true)
-                    star.position.z += i / 10;
-
-                // if the particle is too close move it to the back
-                if (star.position.z > 1000) star.position.z = -1000;
             }
         }
     } else if (start === false) {
