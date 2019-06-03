@@ -17,6 +17,9 @@
 <script src="./js/WebGL.js"></script>
 <script src="./logicGame.js"></script>
 
+<div id="score">
+    Score: 0
+</div>
 <div id="secondMenu">
     <div id="pause">
         PAUSE
@@ -25,16 +28,22 @@
         <h1 class="clickable" onclick="returnMenu()" onmouseout="this.style.cursor='default';"
             onmouseover="this.style.cursor='pointer';">Main Menu</h1>
     </div>
+    <div class="commands">
+        <b>Space:</b> Turbo <br>
+        <b>Mouse Position:</b> Movement Spaceship <br>
+        <b> Left Mouse Click: </b> Shoot <br>
+        <b>Esc:</b> Pause
+    </div>
 </div>
 <div id="mainMenu">
     <div id="title">
         the war of the meteorites
     </div>
+    <!--    <div id="ship1">
+            <h4 class="ship" id="1" onclick="switchShip(1)" onmouseout="this.style.cursor='default';"
+                onmouseover="this.style.cursor='pointer';">x - wing</h4>
+        </div>-->
     <div id="ship1">
-        <h4 class="ship" id="1" onclick="switchShip(1)" onmouseout="this.style.cursor='default';"
-            onmouseover="this.style.cursor='pointer';">x - wing</h4>
-    </div>
-    <div id="ship2">
         <h4 class="ship" id="0" onclick="switchShip(0)" onmouseout="this.style.cursor='default';"
             onmouseover="this.style.cursor='pointer';" style="text-decoration: underline">Tie Fighter</h4>
     </div>
@@ -45,6 +54,12 @@
     <div id="start">
         <h1 class="clickable" onclick="startGame()" onmouseout="this.style.cursor='default';"
             onmouseover="this.style.cursor='pointer';">Play game</h1>
+    </div>
+    <div class="commands">
+        <b>Space:</b> Turbo <br>
+        <b>Mouse Position:</b> Movement Spaceship <br>
+        <b> Left Mouse Click: </b> Shoot <br>
+        <b>Esc:</b> Pause
     </div>
 </div>
 </body>

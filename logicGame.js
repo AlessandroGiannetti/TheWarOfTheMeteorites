@@ -20,9 +20,9 @@ if (WEBGL.isWebGLAvailable() === false) {
 
 //flag bullet swapping dx and sx
 var sx = true;
-var start = false;
+var start = false, score = 0;
 var shooting = false;
-var typeStartShip = 0;
+var typeSpaceShip = 0;
 var camera, controls, scene, renderer;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -37,17 +37,27 @@ var bullets = [];
 
 
 function startGame() {
-    start = !start;
-    if (start === true) {
-        document.getElementById("mainMenu").style.display = "none";
-        document.body.style.cursor = "none";
-    } else {
-        document.getElementById("mainMenu").style.display = "block";
-        document.body.style.cursor = "auto";
-    }
+    // !!important
+    start = true;
+    pause = false;
+
+    // disable auto rotation and orbit controll
     controls.reset();
     controls.enabled = false;
-    switch (typeStartShip) {
+
+    // reset the score
+    score = 0;
+    document.getElementById("score").innerHTML = "Score: " + score.toFixed(2);
+
+    // hide the main menu
+    document.getElementById("mainMenu").style.display = "none";
+    // hide the cursor
+    document.body.style.cursor = "none";
+    // show the score (initialized)
+    document.getElementById("score").style.display = "block";
+
+    // set comera position based on the model loaded
+    switch (typeSpaceShip) {
         case 0:
             camera.position.z = 5;
             break;
@@ -62,12 +72,21 @@ function startGame() {
 
 function returnMenu() {
     start = false;
+
+    // reload default spaceship
     scene.remove(spaceShip);
-    loadModel("star-wars-vader-tie-fighter");
-    camera.position.z = 5;
+    loadModel("star-wars-vader-tie-fighter", 0);
+
+    // enable auto rotation and drag control
     controls.enabled = true;
+
+    // hide pause menu
     document.getElementById("secondMenu").style.display = "none";
+    // show main menu
     document.getElementById("mainMenu").style.display = "block";
+    // hide score
+    document.getElementById("score").style.display = "none";
+    // show the pointer
     document.body.style.cursor = "block";
 
     // button spaceShip underline
@@ -75,6 +94,7 @@ function returnMenu() {
     for (var i = 0; i < elem.length; i++)
         elem[i].style.textDecoration = "none";
     document.getElementById("0").style.textDecoration = "underline";
+
     // ==========================
 }
 
@@ -86,23 +106,20 @@ function switchShip(type) {
     document.getElementById(type).style.textDecoration = "underline";
     // ==========================
 
-    typeStartShip = type;
+    typeSpaceShip = type;
     scene.remove(spaceShip);
     if (type === 0) {
-        //loadModelGLTF("interceptor-tie");
-        loadModel("star-wars-vader-tie-fighter");
-        camera.position.z = 5;
+        loadModel("star-wars-vader-tie-fighter", 0);
     }
     if (type === 1) {
-        //loadModelGLTF("x-wing");
-        loadModel("x-wing");
-        camera.position.z = 10;
+        //loadModel("x-wing");
     }
     if (type === 2) {
-        loadModel("star-wars-arc-170-pbr");
-        camera.position.z = 15;
+        loadModel("star-wars-arc-170-pbr", 2);
     }
-    lightBullet = new THREE.PointLight(typeStartShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 0, 2);
+
+    // init of the light of the bullet for each spaceship
+    lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 0, 2);
 }
 
 //=============================================================================
@@ -167,7 +184,7 @@ function starForge() {
     for (var z = -1000; z < 1000; z += 5) {
         // Make a sphere (exactly the same as before).
         var geometry = new THREE.SphereGeometry(0.5, 32, 32);
-        var material = new THREE.MeshPhongMaterial({color: 0xffffff});
+        var material = new THREE.MeshPhongMaterial({color: 0xffffff, reflectivity: 0.1});
         var sphere = new THREE.Mesh(geometry, material);
         // This time we give the sphere random x and y positions between -500 and 500
         sphere.position.x = Math.random() * 1000 - 500;
@@ -193,7 +210,7 @@ var pause = false;
 //model
 var objectLoader = new THREE.ObjectLoader();
 
-function loadModel(name) {
+function loadModel(name, typeStartShip) {
     // BEGIN Clara.io JSON loader code
     objectLoader.load("models/" + name + ".json", function (obj) {
             scene.add(obj);
@@ -203,10 +220,12 @@ function loadModel(name) {
                     case 0:
                         spaceShip.position.y = -1;
                         spaceShip.position.x = -0.4;
+                        camera.position.z = 5;
                         break;
                     case 2:
                         spaceShip.position.y = -4.5;
                         spaceShip.position.x = -0.4;
+                        camera.position.z = 15;
                         break;
                 }
             }
@@ -241,33 +260,46 @@ loader.load('./models/texture/sun.jpg', function (texture) {
 });
 loader.load('./models/texture/moon.jpg', function (texture) {
     var geometry = new THREE.SphereBufferGeometry(140, 32, 32);
-    var material = new THREE.MeshPhongMaterial({map: texture, overdraw: 0.5, reflectivity: 0.4});
+    var material = new THREE.MeshPhongMaterial({map: texture, overdraw: 0.5, reflectivity: 0.2});
     var moon = new THREE.Mesh(geometry, material);
 
     moon.position.set(-1700, -90, -2183);
     scene.add(moon);
 });
+var asteroid = null;
+loader.load('./models/texture/steroid.png', function (texture) {
+    var geometry = new THREE.SphereBufferGeometry(5, 3, 32);
+    var material = new THREE.MeshPhongMaterial({map: texture, overdraw: 0.5, reflectivity: 0.1});
+    asteroid = new THREE.Mesh(geometry, material);
+    asteroid.position.set(0, 0, -30);
+
+    scene.add(asteroid);
+
+});
+
+
 // =================================================================================================
 
 camera.position.z = 5;
 //game Logic
 
-lightBullet = new THREE.PointLight(typeStartShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 30, 2);
+lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 30, 2);
 
 function update() {
+
     if (start === true && pause === false) {
         if (modelLoaded === true) {
             //camera.position.x = mouseX * 0.002;
             //camera.position.y = (-mouseY) * 0.008;
             spaceShip.position.x = mouseX * 0.008;
-            spaceShip.position.y = (-mouseY) * 0.01 + (typeStartShip === 0 ? 0 : -5);
-            spaceShip.rotation.z = mouseX * (typeStartShip === 0 ? 0.0007 : 0.00001);
+            spaceShip.position.y = (-mouseY) * 0.01 + (typeSpaceShip === 0 ? 0 : -5);
+            spaceShip.rotation.z = mouseX * (typeSpaceShip === 0 ? 0.0007 : 0.00001);
 
             if (turbo === true) {
                 if ((camera.position.z - spaceShip.position.z) < 8)
                     camera.position.z += 0.2;
             } else {
-                if ((camera.position.z - spaceShip.position.z) > 5 && typeStartShip === 0)
+                if ((camera.position.z - spaceShip.position.z) > 5 && typeSpaceShip === 0)
                     camera.position.z -= 0.2;
             }
 
@@ -275,17 +307,25 @@ function update() {
             // remove bullets when appropriate
             for (var index = 0; index < bullets.length; index += 1) {
                 if (bullets[index] === undefined) continue;
-                if (bullets[index].alive == false) {
+                if (bullets[index].alive === false) {
                     bullets.splice(index, 1);
                     continue;
                 }
                 bullets[index].position.add(bullets[index].velocity);
+
+                // computation of the Euclidian distance for the bullet detection
+                if (asteroid.position.distanceTo(bullets[index].position) <= (0.05 + 5)) {
+                    //console.log("take it");
+                    score += 0.01;
+                    document.getElementById("score").innerHTML = "Score: " + score.toFixed(2);
+                    scene.remove(bullets[index]);
+                }
             }
             if (shooting === true) {
                 var geometry = new THREE.SphereBufferGeometry(0.05, 8, 8);
                 var material;
                 material = new THREE.MeshBasicMaterial({
-                    color: (typeStartShip === 0 ? 0xff0000 : 0x00ff00),
+                    color: (typeSpaceShip === 0 ? 0xff0000 : 0x00ff00),
                     refractionRatio: 0.98,
                     reflectivity: 0.9
                 });
@@ -293,20 +333,20 @@ function update() {
 
                 // position the bullet to come from the player's weapon
                 if (sx === true) {
-                    bullet.position.set(spaceShip.position.x + (typeStartShip === 0 ? 0.17 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeStartShip === 0 ? 0.8 : 9));
-                    lightBullet.position.set(spaceShip.position.x + (typeStartShip === 0 ? 0.1 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeStartShip === 0 ? 0.7 : 9));
+                    bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.17 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.8 : 9));
+                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.1 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 } else {
-                    bullet.position.set(spaceShip.position.x + (typeStartShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, -(typeStartShip === 0 ? 0.8 : 9));
-                    lightBullet.position.set(spaceShip.position.x + (typeStartShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, -(typeStartShip === 0 ? 0.7 : 9));
+                    bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.8 : 9));
+                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.7 : 9));
                 }
 
                 sx = !sx;
 
                 // set the velocity of the bullet
                 bullet.velocity = new THREE.Vector3(
-                    -Math.sin(spaceShip.rotation.y),
+                    -Math.sin(spaceShip.rotation.x),
                     0,
-                    -Math.cos(spaceShip.rotation.y)
+                    -Math.cos(spaceShip.rotation.z)
                 );
                 // after 1000ms, set alive to false and remove from scene
                 // setting alive to false flags our update code to remove
@@ -321,6 +361,7 @@ function update() {
                 scene.add(bullet);
                 bullets.push(bullet);
                 scene.add(lightBullet);
+
             } else {
                 scene.remove(lightBullet);
             }
