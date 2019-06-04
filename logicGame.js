@@ -128,7 +128,7 @@ function switchShip(type) {
     }
 
     // init of the light of the bullet for each spaceship
-    lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 0, 2);
+    //lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 0, 2);
 }
 
 function switchLvl(level) {
@@ -310,8 +310,7 @@ loader.load('./models/texture/moon.jpg', function (texture) {
 camera.position.z = 5;
 
 //game Logic
-lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 30, 2);
-
+//scene.add(lightBullet);
 function update() {
 
     if (start === true && pause === false) {
@@ -378,9 +377,8 @@ function update() {
                         bullets[index].alive = false;
                     }
                 }
-
-
             }
+
             // space bar pressed - user shoot
             if (shooting === true) {
                 var geometry = new THREE.SphereBufferGeometry(0.06, 8, 8);
@@ -391,14 +389,12 @@ function update() {
                     reflectivity: 0.9
                 });
                 var bullet = new THREE.Mesh(geometry, material);
-
+                //lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.1 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 // position the bullet to come from the player's weapon
                 if (sx === true) {
                     bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.17 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.8 : 9));
-                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.1 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 } else {
                     bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.8 : 9));
-                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 }
                 sx = !sx;
 
@@ -412,8 +408,7 @@ function update() {
                 // add to scene, array, and set the delay to 10 frames
                 scene.add(bullet);
                 bullets.push(bullet);
-                scene.add(lightBullet);
-            } else scene.remove(lightBullet)
+            }
         }
     } else if (start === false) {
         controls.autoRotate = true;
