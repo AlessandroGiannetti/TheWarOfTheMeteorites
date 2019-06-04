@@ -20,7 +20,12 @@ if (WEBGL.isWebGLAvailable() === false) {
 
 //flag bullet swapping dx and sx
 var sx = true;
-var start = false, score = 0;
+var turbo = false;
+var spaceShip = null;
+var modelLoaded = false;
+var pause = false;
+var start = false;
+var score = 0, health = 100, lvl = 1;
 var shooting = false;
 var typeSpaceShip = 0;
 var camera, controls, scene, renderer;
@@ -28,13 +33,17 @@ var width = window.innerWidth;
 var height = window.innerHeight;
 var lightBullet;
 // mouse position
-var mouseX = 0;
-var mouseY = 0;
+var mouseX = 0, mouseY = 0;
 // stars array
 var stars = [];
+// asteroid array
+var asteroids = [];
 // Bullets array
 var bullets = [];
 
+// loader variable
+var loader = new THREE.TextureLoader();
+var objectLoader = new THREE.ObjectLoader();
 
 function startGame() {
     // !!important
@@ -122,6 +131,14 @@ function switchShip(type) {
     lightBullet = new THREE.PointLight(typeSpaceShip === 0 ? 0xff0000 : 0x00ff00, 0.5, 0, 2);
 }
 
+function switchLvl(level) {
+    var elem = document.getElementsByClassName("lvl");
+    for (var i = 0; i < elem.length; i++)
+        elem[i].style.textDecoration = "none";
+    document.getElementById("lvl" + level).style.textDecoration = "underline";
+    lvl = level;
+}
+
 //=============================================================================
 
 scene = new THREE.Scene();
@@ -142,9 +159,15 @@ window.addEventListener('resize', function () {
 });
 document.addEventListener("keydown", function (event) {
     var keyCode = event.which;
+    // space bar key
     if (keyCode === 32) {
+        shooting = true;
+    }
+    // p key
+    if (keyCode === 84) {
         turbo = true;
     }
+    // escape key
     if (keyCode === 27) {
         if (start === true) {
             pause = !pause;
@@ -160,19 +183,18 @@ document.addEventListener("keydown", function (event) {
 }, false);
 document.addEventListener("keyup", function (event) {
     var keyCode = event.which;
-    if (keyCode === 32) {
+    // p key
+    if (keyCode === 84) {
         turbo = false;
+    }
+    // space bar key
+    if (keyCode === 32) {
+        shooting = false;
     }
 }, false);
 document.addEventListener('mousemove', function (e) {
     mouseX = e.clientX - width / 2;
     mouseY = e.clientY - height / 2
-}, false);
-document.addEventListener('mousedown', function () {
-    shooting = true;
-}, false);
-document.addEventListener('mouseup', function () {
-    shooting = false;
 }, false);
 //===================================================================================================
 
@@ -181,7 +203,7 @@ controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 function starForge() {
     // The loop will move from z position of -1000 to z position 1000, adding a random particle at each position.
-    for (var z = -1000; z < 1000; z += 5) {
+    for (var z = -1000; z < 1000; z += 20) {
         // Make a sphere (exactly the same as before).
         var geometry = new THREE.SphereGeometry(0.5, 32, 32);
         var material = new THREE.MeshPhongMaterial({color: 0xffffff, reflectivity: 0.1});
@@ -200,16 +222,34 @@ function starForge() {
     }
 }
 
-starForge();
+function asteroidForge() {
+    // The loop will move from z position of -1000 to z position 1000, adding a random particle at each position.
+    var i = -5000;
+    for (var z = -10000; z < -100; z += (60 / lvl)) {
+        // Make a sphere (exactly the same as before).
+        loader.load('./models/texture/asteroid.png', function (texture) {
+            var geometry = new THREE.SphereBufferGeometry(28, Math.random() * 4 + 3, Math.random() * 6 + 5); // 3 32
+            var material = new THREE.MeshPhongMaterial({map: texture, reflectivity: 0.1});
+            var asteroid = new THREE.Mesh(geometry, material);
 
-var turbo = false;
-var spaceShip = null;
-var modelLoaded = false;
-var pause = false;
+            // This time we give the sphere random x and y positions between -500 and 500
+            asteroid.position.x = Math.random() * 300 - 100;
+            asteroid.position.y = Math.random() * 300 - 100;
+            // Then set the z position to where it is in the loop (distance of camera)
+            asteroid.position.z = i;
+            //add the sphere to the scene
+            scene.add(asteroid);
+            //finally push it to the stars array
+            asteroids.push(asteroid);
+            i += 30;
+        });
+    }
+}
+
+starForge();
+asteroidForge();
 
 //model
-var objectLoader = new THREE.ObjectLoader();
-
 function loadModel(name, typeStartShip) {
     // BEGIN Clara.io JSON loader code
     objectLoader.load("models/" + name + ".json", function (obj) {
@@ -246,37 +286,25 @@ function loadModel(name, typeStartShip) {
 loadModel("star-wars-vader-tie-fighter");
 
 // planet creation
-var loader = new THREE.TextureLoader();
 loader.load('./models/texture/sun.jpg', function (texture) {
-    var geometry = new THREE.SphereBufferGeometry(240, 32, 32);
-    var material = new THREE.MeshBasicMaterial({map: texture, overdraw: 0.5});
+    var geometry = new THREE.SphereBufferGeometry(280, 32, 32);
+    var material = new THREE.MeshBasicMaterial({map: texture});
     var sphere = new THREE.Mesh(geometry, material);
 
-    sphere.position.set(534, 48, -766);
-    var light1 = new THREE.PointLight(0xfe8c21, 4, 0, 2);
-    light1.position.set(534, 200, -766);
+    sphere.position.set(534, 48, -966);
+    var light1 = new THREE.PointLight(0xfe8c21, 3, 0, 2);
+    light1.position.set(534, 200, -966);
     light1.add(sphere);
     scene.add(light1);
 });
 loader.load('./models/texture/moon.jpg', function (texture) {
-    var geometry = new THREE.SphereBufferGeometry(140, 32, 32);
-    var material = new THREE.MeshPhongMaterial({map: texture, overdraw: 0.5, reflectivity: 0.2});
+    var geometry = new THREE.SphereBufferGeometry(210, 32, 32);
+    var material = new THREE.MeshPhongMaterial({map: texture, reflectivity: 0.2});
     var moon = new THREE.Mesh(geometry, material);
 
     moon.position.set(-1700, -90, -2183);
     scene.add(moon);
 });
-var asteroid = null;
-loader.load('./models/texture/steroid.png', function (texture) {
-    var geometry = new THREE.SphereBufferGeometry(5, 3, 32);
-    var material = new THREE.MeshPhongMaterial({map: texture, overdraw: 0.5, reflectivity: 0.1});
-    asteroid = new THREE.Mesh(geometry, material);
-    asteroid.position.set(0, 0, -30);
-
-    scene.add(asteroid);
-
-});
-
 // =================================================================================================
 
 camera.position.z = 5;
@@ -293,11 +321,11 @@ function update() {
             spaceShip.rotation.z = mouseX * (typeSpaceShip === 0 ? 0.0007 : 0.00001);
 
             if (turbo === true) {
-                if ((camera.position.z - spaceShip.position.z) < 8)
-                    camera.position.z += 0.2;
+                if ((spaceShip.position.z) > -5)
+                    spaceShip.position.z -= 0.2;
             } else {
-                if ((camera.position.z - spaceShip.position.z) > 5 && typeSpaceShip === 0)
-                    camera.position.z -= 0.2;
+                if ((spaceShip.position.z) < 0)
+                    spaceShip.position.z += 0.2;
             }
 
             // loop through each star
@@ -310,10 +338,26 @@ function update() {
                 if (stars[i].position.z > 1000) stars[i].position.z = -1000;
             }
 
+            // loop through each asteroids
+            for (var x = 0; x < asteroids.length; x++) {
+                asteroids[x].position.z += lvl * 10;
+                asteroids[x].rotation.x += x / 5100;
+                asteroids[x].rotation.z += x / 5500;
+                if (turbo === true)
+                    asteroids[x].position.z += 10;
+                // if the particle is too close move it to the back
+                if (asteroids[x].position.z > 1000) asteroids[x].position.z = -5000;
+            }
 
             // go through bullets array and update position
             // remove bullets when appropriate
             for (var index = 0; index < bullets.length; index += 1) {
+
+                // if the bullets position on z axis > 1000 ill remove it
+                if (bullets[index].position.z < -200) {
+                    scene.remove(bullets[index]);
+                    bullets[index].alive = false;
+                }
                 if (bullets[index] === undefined) continue;
                 if (bullets[index].alive === false) {
                     bullets.splice(index, 1);
@@ -321,23 +365,25 @@ function update() {
                 }
                 bullets[index].position.add(bullets[index].velocity);
                 // computation of the Euclidian distance for the bullet detection
-                if (asteroid.position.distanceTo(bullets[index].position) <= (0.05 + 5)) {
-                    //console.log("take it");
-                    score += 0.01;
-                    document.getElementById("score").innerHTML = "Score: " + score.toFixed(2);
-                    scene.remove(bullets[index]);
-                    bullets[index].alive = false;
+                for (var i = 0; i < asteroids.length; i++) {
+                    if (asteroids[i].position.distanceTo(bullets[index].position) <= (0.06 + 30)) {
+                        //update score
+                        score += 0.1;
+                        document.getElementById("score").innerHTML = "Score: " + score.toFixed(2);
+
+                        // target hit - remove the bullet
+                        scene.remove(bullets[index]);
+                        // place the asteroids in the init position
+                        asteroids[i].position.z = -8000;
+                        bullets[index].alive = false;
+                    }
                 }
 
-                // if the bullets position on z axis > 1000 ill remove it
-                if (bullets[index].position.z > 1000) {
-                    scene.remove(bullets[index]);
-                    bullets[index].alive = false;
-                }
+
             }
-
+            // space bar pressed - user shoot
             if (shooting === true) {
-                var geometry = new THREE.SphereBufferGeometry(0.05, 8, 8);
+                var geometry = new THREE.SphereBufferGeometry(0.06, 8, 8);
                 var material;
                 material = new THREE.MeshBasicMaterial({
                     color: (typeSpaceShip === 0 ? 0xff0000 : 0x00ff00),
@@ -351,8 +397,8 @@ function update() {
                     bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.17 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.8 : 9));
                     lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.1 : -13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 } else {
-                    bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.8 : 9));
-                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, -(typeSpaceShip === 0 ? 0.7 : 9));
+                    bullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.45 : 13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.8 : 9));
+                    lightBullet.position.set(spaceShip.position.x + (typeSpaceShip === 0 ? 0.6 : 13.7), spaceShip.position.y + 0.57, spaceShip.position.z - (typeSpaceShip === 0 ? 0.7 : 9));
                 }
                 sx = !sx;
 
@@ -360,14 +406,14 @@ function update() {
                 bullet.velocity = new THREE.Vector3(
                     -Math.sin(spaceShip.rotation.x),
                     0,
-                    -Math.cos(spaceShip.rotation.z)
+                    -Math.cos(spaceShip.rotation.x)
                 );
                 bullet.alive = true;
                 // add to scene, array, and set the delay to 10 frames
                 scene.add(bullet);
                 bullets.push(bullet);
                 scene.add(lightBullet);
-            }
+            } else scene.remove(lightBullet)
         }
     } else if (start === false) {
         controls.autoRotate = true;

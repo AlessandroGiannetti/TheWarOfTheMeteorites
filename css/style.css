@@ -53,12 +53,13 @@ body {
 }
 
 .commands {
-    font-family: "Calibri Light";
+    font-family: Roboto;
     position: absolute;
     bottom: 1%;
+    left: 0.5%;
     text-align: left;
     width: 100%;
-    font-size: 15px;
+    font-size: 19px;
     display: block;
 }
 
@@ -110,6 +111,36 @@ body {
 #ship3 {
     position: absolute;
     bottom: 20%;
+    left: 75%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    width: 19%;
+    z-index: 10000;
+}
+
+#easy {
+    position: absolute;
+    bottom: 30%;
+    left: 25%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    width: 19%;
+    z-index: 10000;
+}
+
+#medium {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    width: 19%;
+    z-index: 10000;
+}
+
+#hard {
+    position: absolute;
+    bottom: 30%;
     left: 75%;
     transform: translate(-50%, 0);
     text-align: center;

@@ -27,9 +27,9 @@
             onmouseover="this.style.cursor='pointer';">Main Menu</h1>
     </div>
     <div class="commands">
-        <b>Space:</b> Turbo <br>
+        <b>Space:</b> Shoot <br>
         <b>Mouse Position:</b> Movement Spaceship <br>
-        <b> Left Mouse Click: </b> Shoot <br>
+        <b> T: </b> Turbo <br>
         <b>Esc:</b> Pause
     </div>
 </div>
@@ -41,22 +41,36 @@
             <h4 class="ship" id="1" onclick="switchShip(1)" onmouseout="this.style.cursor='default';"
                 onmouseover="this.style.cursor='pointer';">x - wing</h4>
         </div>-->
+    <div id="easy">
+        <h4 class="lvl" id="lvl1" onclick="switchLvl(1)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';" style="text-decoration: underline">Easy</h4>
+    </div>
+    <div id="medium">
+        <h4 class="lvl" id="lvl2" onclick="switchLvl(2)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">Medium</h4>
+    </div>
+    <div id="hard">
+        <h4 class="lvl" id="lvl3" onclick="switchLvl(3)" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">Hard</h4>
+    </div>
+
+
     <div id="ship1">
         <h4 class="ship" id="0" onclick="switchShip(0)" onmouseout="this.style.cursor='default';"
-            onmouseover="this.style.cursor='pointer';" style="text-decoration: underline">Tie Fighter</h4>
+            onmouseover="this.style.cursor='pointer';" style="text-decoration: underline">Tie - Fighter</h4>
     </div>
     <div id="ship3">
         <h4 class="ship" id="2" onclick="switchShip(2)" onmouseout="this.style.cursor='default';"
-            onmouseover="this.style.cursor='pointer';">arc - 170pbr</h4>
+            onmouseover="this.style.cursor='pointer';">arc - 170pbr (beta)</h4>
     </div>
     <div id="start">
         <h1 class="clickable" onclick="startGame()" onmouseout="this.style.cursor='default';"
             onmouseover="this.style.cursor='pointer';">Play game</h1>
     </div>
     <div class="commands">
-        <b>Space:</b> Turbo <br>
+        <b>Space:</b> Shoot <br>
         <b>Mouse Position:</b> Movement Spaceship <br>
-        <b> Left Mouse Click: </b> Shoot <br>
+        <b> T: </b> Turbo <br>
         <b>Esc:</b> Pause
     </div>
 </div>
