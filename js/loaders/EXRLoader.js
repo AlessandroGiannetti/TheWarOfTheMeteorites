@@ -1,7 +1,7 @@
 /**
  * @author Richard M. / https://github.com/richardmonette
  *
- * OpenEXR loader which, currently, supports reading 16 bit half data, in either
+ * OpenEXR textureLoader which, currently, supports reading 16 bit half data, in either
  * uncompressed or PIZ wavelet compressed form.
  *
  * Referred to the original Industrial Light & Magic OpenEXR implementation and the TinyEXR / Syoyo Fujita

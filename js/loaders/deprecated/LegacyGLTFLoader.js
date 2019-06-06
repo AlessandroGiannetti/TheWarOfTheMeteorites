@@ -837,7 +837,7 @@ THREE.LegacyGLTFLoader = (function () {
         this.extensions = extensions || {};
         this.options = options || {};
 
-        // loader object cache
+        // textureLoader object cache
         this.cache = new GLTFRegistry();
 
     }
@@ -880,7 +880,7 @@ THREE.LegacyGLTFLoader = (function () {
 
         var json = this.json;
 
-        // Clear the loader cache
+        // Clear the textureLoader cache
         this.cache.removeAll();
 
         // Fire the callback on complete

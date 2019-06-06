@@ -805,7 +805,7 @@ THREE.FBXLoader = (function () {
 
         },
 
-        // create the main THREE.Group() to be returned by the loader
+        // create the main THREE.Group() to be returned by the textureLoader
         parseScene: function (deformers, geometryMap, materialMap) {
 
             sceneGraph = new THREE.Group();
@@ -2271,7 +2271,7 @@ THREE.FBXLoader = (function () {
 
             if (THREE.NURBSCurve === undefined) {
 
-                console.error('THREE.FBXLoader: The loader relies on THREE.NURBSCurve for any nurbs present in the model. Nurbs will show up as empty geometry.');
+                console.error('THREE.FBXLoader: The textureLoader relies on THREE.NURBSCurve for any nurbs present in the model. Nurbs will show up as empty geometry.');
                 return new THREE.BufferGeometry();
 
             }

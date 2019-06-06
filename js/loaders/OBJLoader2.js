@@ -15,7 +15,7 @@ if (THREE.LoaderSupport === undefined) console.error('"THREE.LoaderSupport" is n
  * Use this class to load OBJ data from files or to parse OBJ data from an arraybuffer
  * @class
  *
- * @param {THREE.DefaultLoadingManager} [manager] The loadingManager for the loader to use. Default is {@link THREE.DefaultLoadingManager}
+ * @param {THREE.DefaultLoadingManager} [manager] The loadingManager for the textureLoader to use. Default is {@link THREE.DefaultLoadingManager}
  */
 
 THREE.OBJLoader2 = function (manager) {
@@ -287,7 +287,7 @@ THREE.OBJLoader2.prototype = {
     },
 
     /**
-     * Run the loader according the provided instructions.
+     * Run the textureLoader according the provided instructions.
      *
      * @param {THREE.LoaderSupport.PrepData} prepData All parameters and resources required for execution
      * @param {THREE.LoaderSupport.WorkerSupport} [workerSupportExternal] Use pre-existing WorkerSupport

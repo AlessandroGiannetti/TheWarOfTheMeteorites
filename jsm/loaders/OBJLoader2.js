@@ -17,7 +17,7 @@ import {MaterialHandler} from "./shared/MaterialHandler.js";
  * Use this class to load OBJ data from files or to parse OBJ data from an arraybuffer
  * @class
  *
- * @param {DefaultLoadingManager} [manager] The loadingManager for the loader to use. Default is {@link DefaultLoadingManager}
+ * @param {DefaultLoadingManager} [manager] The loadingManager for the textureLoader to use. Default is {@link DefaultLoadingManager}
  */
 const OBJLoader2 = function (manager) {
     this.manager = (manager !== undefined && manager !== null) ? manager : DefaultLoadingManager;

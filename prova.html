@@ -55,7 +55,7 @@
         directionalLight.position.set(0, 0, 1).normalize();
         scene.add(directionalLight);
 
-        // BEGIN Clara.io JSON loader code
+        // BEGIN Clara.io JSON textureLoader code
         var objectLoader = new THREE.ObjectLoader();
         objectLoader.load("models/star-wars-vader-tie-fighter.json", function (obj) {
 
@@ -71,7 +71,7 @@
             function (error) {
                 console.log('An error happened' + error);
             });
-        // END Clara.io JSON loader code
+        // END Clara.io JSON textureLoader code
 
         renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio(window.devicePixelRatio);

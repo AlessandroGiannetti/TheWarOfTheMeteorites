@@ -4,11 +4,11 @@
  * @author gero3 / https://github.com/gero3
  * @author Mugen87 / https://github.com/Mugen87
  *
- * Description: A THREE loader for STL ASCII files, as created by Solidworks and other CAD programs.
+ * Description: A THREE textureLoader for STL ASCII files, as created by Solidworks and other CAD programs.
  *
  * Supports both binary and ASCII encoded files, with automatic detection of type.
  *
- * The loader returns a non-indexed buffer geometry.
+ * The textureLoader returns a non-indexed buffer geometry.
  *
  * Limitations:
  *  Binary decoding supports "Magics" color format (http://en.wikipedia.org/wiki/STL_(file_format)#Color_in_binary_STL).
@@ -16,8 +16,8 @@
  *  ASCII decoding assumes file is UTF-8.
  *
  * Usage:
- *  var loader = new THREE.STLLoader();
- *  loader.load( './models/stl/slotted_disk.stl', function ( geometry ) {
+ *  var textureLoader = new THREE.STLLoader();
+ *  textureLoader.load( './models/stl/slotted_disk.stl', function ( geometry ) {
  *    scene.add( new THREE.Mesh( geometry ) );
  *  });
  *

@@ -52,6 +52,15 @@ body {
     display: none;
 }
 
+#health {
+    position: absolute;
+    top: 4.5%;
+    text-align: right;
+    width: 100%;
+    font-size: 28px;
+    display: none;
+}
+
 .commands {
     font-family: Roboto;
     position: absolute;
@@ -63,6 +72,14 @@ body {
     display: block;
 }
 
+#gameOver {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
 #secondMenu {
     position: absolute;
     top: 0;
@@ -71,7 +88,7 @@ body {
     display: none;
 }
 
-#pause {
+.title {
     position: absolute;
     top: 10%;
     text-align: center;
@@ -79,7 +96,7 @@ body {
     font-size: 105px;
 }
 
-#returnMenu {
+.returnMenu {
     position: absolute;
     bottom: 10%;
     text-align: center;
@@ -146,4 +163,23 @@ body {
     text-align: center;
     width: 19%;
     z-index: 10000;
+}
+
+
+/*button circle*/
+.btn-circle {
+    font-family: Roboto;
+    font-weight: bold;
+    color: black;
+    background-color: #ECC760;
+    position: absolute;
+    bottom: 5%;
+    right: 2%;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 33px;
+    border-radius: 35px;
+    opacity: 10%;
 }

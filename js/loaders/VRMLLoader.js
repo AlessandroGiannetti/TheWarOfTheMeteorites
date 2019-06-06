@@ -840,7 +840,7 @@ THREE.VRMLLoader.prototype = {
                     } else if (data.nodeType === 'IndexedLineSet') {
 
                         console.warn('THREE.VRMLLoader: IndexedLineSet not supported yet.');
-                        parent.parent.remove(parent); // since the loader is not able to parse the geometry, remove the respective 3D object
+                        parent.parent.remove(parent); // since the textureLoader is not able to parse the geometry, remove the respective 3D object
 
                     } else if (data.nodeType === 'Text') {
 

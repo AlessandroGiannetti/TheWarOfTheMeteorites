@@ -15,14 +15,28 @@
 <script src="./js/WebGL.js"></script>
 <script src="./logicGame.js"></script>
 
+<div id="health">
+    Health: 100 / 100
+</div>
 <div id="score">
     Score: 0
 </div>
+
+<div id="gameOver">
+    <div class="title">
+        GAME oVER
+    </div>
+    <div class="returnMenu">
+        <h1 class="clickable" onclick="returnMenu()" onmouseout="this.style.cursor='default';"
+            onmouseover="this.style.cursor='pointer';">Main Menu</h1>
+    </div>
+</div>
+
 <div id="secondMenu">
-    <div id="pause">
+    <div class="title">
         PAUSE
     </div>
-    <div id="returnMenu">
+    <div class="returnMenu">
         <h1 class="clickable" onclick="returnMenu()" onmouseout="this.style.cursor='default';"
             onmouseover="this.style.cursor='pointer';">Main Menu</h1>
     </div>
@@ -74,5 +88,7 @@
         <b>Esc:</b> Pause
     </div>
 </div>
+
+<button class="btn btn-danger btn-circle" type="button">?</button>
 </body>
 </html>

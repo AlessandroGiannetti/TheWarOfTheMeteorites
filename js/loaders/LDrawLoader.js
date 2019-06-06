@@ -856,7 +856,7 @@ THREE.LDrawLoader = (function () {
                     subobject.url = subobjectURL;
 
                     // Load the subobject
-                    // Use another file loader here so we can keep track of the subobject information
+                    // Use another file textureLoader here so we can keep track of the subobject information
                     // and use it when processing the next model.
                     var fileLoader = new THREE.FileLoader(scope.manager);
                     fileLoader.setPath(scope.path);

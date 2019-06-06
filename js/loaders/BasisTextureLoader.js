@@ -12,7 +12,7 @@
  * (.basis) that can be quickly transcoded to a wide variety of GPU texture
  * compression formats.
  *
- * This loader parallelizes the transcoding process across a configurable number
+ * This textureLoader parallelizes the transcoding process across a configurable number
  * of web workers, before transferring the transcoded compressed texture back
  * to the main thread.
  */

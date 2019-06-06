@@ -35139,7 +35139,7 @@
     /**
      * @author mrdoob / http://mrdoob.com/
      *
-     * Abstract Base class to block based textures loader (dds, pvr, ...)
+     * Abstract Base class to block based textures textureLoader (dds, pvr, ...)
      */
 
     function CompressedTextureLoader(manager) {

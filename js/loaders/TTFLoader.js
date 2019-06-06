@@ -188,7 +188,7 @@ THREE.TTFLoader.prototype = {
 
         if (typeof opentype === 'undefined') {
 
-            console.warn('THREE.TTFLoader: The loader requires opentype.js. Make sure it\'s included before using the loader.');
+            console.warn('THREE.TTFLoader: The textureLoader requires opentype.js. Make sure it\'s included before using the textureLoader.');
             return null;
 
         }

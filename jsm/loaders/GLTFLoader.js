@@ -1690,7 +1690,7 @@ var GLTFLoader = (function () {
         this.extensions = extensions || {};
         this.options = options || {};
 
-        // loader object cache
+        // textureLoader object cache
         this.cache = new GLTFRegistry();
 
         // BufferGeometry caching
@@ -1710,7 +1710,7 @@ var GLTFLoader = (function () {
         var json = this.json;
         var extensions = this.extensions;
 
-        // Clear the loader cache
+        // Clear the textureLoader cache
         this.cache.removeAll();
 
         // Mark the special nodes/meshes in json for efficient parse

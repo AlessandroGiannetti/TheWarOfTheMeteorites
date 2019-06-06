@@ -2,7 +2,7 @@
  * @author Filipe Caixeta / http://filipecaixeta.com.br
  * @author Mugen87 / https://github.com/Mugen87
  *
- * Description: A THREE loader for PCD ascii and binary files.
+ * Description: A THREE textureLoader for PCD ascii and binary files.
  *
  * Limitations: Compressed binary files are not supported.
  *

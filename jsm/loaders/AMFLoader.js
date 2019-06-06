@@ -7,8 +7,8 @@
  * More information about the AMF format: http://amf.wikispaces.com
  *
  * Usage:
- *	var loader = new AMFLoader();
- *	loader.load('/path/to/project.amf', function(objecttree) {
+ *	var textureLoader = new AMFLoader();
+ *	textureLoader.load('/path/to/project.amf', function(objecttree) {
  *		scene.add(objecttree);
  *	});
  *

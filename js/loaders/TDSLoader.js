@@ -1,5 +1,5 @@
 /*
- * Autodesk 3DS three.js file loader, based on lib3ds.
+ * Autodesk 3DS three.js file textureLoader, based on lib3ds.
  *
  * Loads geometry with uv and materials basic properties with texture support.
  *

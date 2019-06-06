@@ -1,14 +1,14 @@
 /**
  * @author Wei Meng / http://about.me/menway
  *
- * Description: A THREE loader for PLY ASCII files (known as the Polygon
+ * Description: A THREE textureLoader for PLY ASCII files (known as the Polygon
  * File Format or the Stanford Triangle Format).
  *
  * Limitations: ASCII decoding assumes file is UTF-8.
  *
  * Usage:
- *    var loader = new THREE.PLYLoader();
- *    loader.load('./models/ply/ascii/dolphins.ply', function (geometry) {
+ *    var textureLoader = new THREE.PLYLoader();
+ *    textureLoader.load('./models/ply/ascii/dolphins.ply', function (geometry) {
  *
  *		scene.add( new THREE.Mesh( geometry ) );
  *
@@ -18,7 +18,7 @@
  * loading. For example, the following maps the properties
  * “diffuse_(red|green|blue)” in the file to standard color names.
  *
- * loader.setPropertyNameMapping( {
+ * textureLoader.setPropertyNameMapping( {
  *	diffuse_red: 'red',
  *	diffuse_green: 'green',
  *	diffuse_blue: 'blue'
