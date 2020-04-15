@@ -8,6 +8,7 @@ Alessandro Giannetti - Edoardo Bini - Marco Ferraro
 [Click here for GitHub Pages](https://interactive-graphics-final-project.github.io/FinalProjectIG/)
 
 Please load using Mozilla Firefox!
+##In the git hub production environment, for some mysterious reason, only works on firefox.
 
 ## Introduction
 “The war of the meteorites” is a game set in the Star Wars universe, in which the player impersonates a pilot struggling to survive a wave of asteroids flying on a spaceship through empty space.
