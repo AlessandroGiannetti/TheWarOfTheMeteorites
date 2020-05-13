@@ -7,7 +7,13 @@ Alessandro Giannetti - Edoardo Bini - Marco Ferraro
 
 [Click here for GitHub Pages](https://interactive-graphics-final-project.github.io/FinalProjectIG/)
 
-Please load using Mozilla Firefox!
+Please load the GitHub Pages using Mozilla Firefox!
+
+Before going into the technical details of the project, we wanted to warn that it will not work correctly if loaded using GitHub pages on Google Chrome.
+There seems to be a problem with loading the model from the folder "Spaceships". The returned error on the console is "infinity% loaded" and this seems to block the game.
+Ultimately, this looks to be a bug of some sort, for which we have no control over. Therefore, we suggest running the game on Mozilla Firefox.
+As a final remark, if the project is downloaded and run locally, it will work on all Browsers.
+
 
 ## Introduction
 “The war of the meteorites” is a game set in the Star Wars universe, in which the player impersonates a pilot struggling to survive a wave of asteroids flying on a spaceship through empty space.
