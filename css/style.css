@@ -5,7 +5,6 @@
     url('../fonts/starjout-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 body {
@@ -13,10 +12,12 @@ body {
     color: #ECC760;
     /* prevent white margin */
     margin: 0;
-
     /* hide scrollbars */
     overflow: hidden;
+}
 
+#Container {
+    display: none;
 }
 
 #start {
@@ -45,22 +46,65 @@ body {
 
 #score {
     position: absolute;
-    top: 1%;
+    top: 0;
+    right: 7.5%;
     text-align: right;
     width: 100%;
     font-size: 28px;
     display: none;
 }
 
-#health {
+/* Management health player*/
+#titlePlayerHealth {
     position: absolute;
     top: 4.5%;
-    text-align: right;
-    width: 100%;
-    font-size: 28px;
+    right: 17%;
     display: none;
 }
 
+#playerHealth {
+    position: absolute;
+    top: 5.5%;
+    right: 1%;
+    width: 15%;
+    height: 2%;
+    background-color: white;
+    border-radius: 7px;
+    display: none;
+}
+
+#valueHealthPlayer {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    background-color: #ECC760;
+}
+
+/* Management health boss*/
+#titleBossHealth {
+    position: absolute;
+    top: 7.5%;
+    right: 17%;
+    display: none;
+}
+
+#bossHealth {
+    position: absolute;
+    top: 8.5%;
+    right: 1%;
+    width: 15%;
+    height: 2%;
+    background-color: white;
+    border-radius: 7px;
+    display: none;
+}
+
+#valueHealthBoss {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    background-color: red;
+}
 .commands {
     font-family: Roboto;
     position: absolute;
@@ -73,6 +117,14 @@ body {
 }
 
 #gameOver {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#victory {
     position: absolute;
     top: 0;
     width: 100%;
@@ -112,7 +164,6 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
 }
 
 #ship2 {
@@ -122,7 +173,6 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
 }
 
 #ship3 {
@@ -132,7 +182,6 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
 }
 
 #easy {
@@ -142,7 +191,7 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
+
 }
 
 #medium {
@@ -152,7 +201,7 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
+
 }
 
 #hard {
@@ -162,7 +211,7 @@ body {
     transform: translate(-50%, 0);
     text-align: center;
     width: 19%;
-    z-index: 10000;
+
 }
 
 
@@ -173,7 +222,7 @@ body {
     color: black;
     background-color: #ECC760;
     position: absolute;
-    bottom: 5%;
+    bottom: 3%;
     right: 2%;
     width: 60px;
     height: 60px;
@@ -181,5 +230,21 @@ body {
     padding: 6px 0;
     font-size: 33px;
     border-radius: 35px;
-    opacity: 10%;
+}
+
+.btn-circle.closeButton {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+}
+
+#instructions {
+    position: absolute;
+    bottom: 1.8%;
+    right: 1.5%;
+    width: 28%;
+    height: 95%;
+    border-radius: 35px;
+    display: none;
+    z-index: 10000;
 }

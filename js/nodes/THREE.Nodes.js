@@ -1,116 +1,79 @@
 import {
-
-    // core
-
-    Node,
-    TempNode,
-    InputNode,
-    ConstNode,
-    VarNode,
-    StructNode,
     AttributeNode,
-    FunctionNode,
-    ExpressionNode,
-    FunctionCallNode,
-    NodeLib,
-    NodeUtils,
-    NodeFrame,
-    NodeUniform,
-    NodeBuilder,
-
-    // inputs
-
+    BlinnExponentToRoughnessNode,
+    BlinnShininessExponentNode,
+    BlurNode,
     BoolNode,
-    IntNode,
-    FloatNode,
-    Vector2Node,
-    Vector3Node,
-    Vector4Node,
-    ColorNode,
-    Matrix3Node,
-    Matrix4Node,
-    TextureNode,
-    CubeTextureNode,
-    ScreenNode,
-    ReflectorNode,
-    PropertyNode,
-    RTTNode,
-
-    // accessors
-
-    UVNode,
-    ColorsNode,
-    PositionNode,
-    NormalNode,
+    BumpMapNode,
+    BypassNode,
     CameraNode,
+    CheckerNode,
+    ColorAdjustmentNode,
+    ColorNode,
+    ColorsNode,
+    ColorSpaceNode,
+    CondNode,
+    ConstNode,
+    CubeTextureNode,
+    ExpressionNode,
+    FloatNode,
+    FunctionCallNode,
+    FunctionNode,
+    InputNode,
+    IntNode,
+    JoinNode,
     LightNode,
-    ReflectNode,
-    ScreenUVNode,
-    ResolutionNode,
-
-    // math
-
+    LuminanceNode,
     Math1Node,
     Math2Node,
     Math3Node,
-    OperatorNode,
-    CondNode,
-
-    // procedural
-
-    NoiseNode,
-    CheckerNode,
-
-    // bsdfs
-
-    BlinnShininessExponentNode,
-    BlinnExponentToRoughnessNode,
-    RoughnessToBlinnExponentNode,
-
-    // misc
-
-    TextureCubeUVNode,
-    TextureCubeNode,
-    NormalMapNode,
-    BumpMapNode,
-
-    // utils
-
-    BypassNode,
-    JoinNode,
-    SwitchNode,
-    TimerNode,
-    VelocityNode,
-    UVTransformNode,
+    Matrix3Node,
+    Matrix4Node,
     MaxMIPLevelNode,
-    ColorSpaceNode,
-
-    // effects
-
-    BlurNode,
-    ColorAdjustmentNode,
-    LuminanceNode,
-
-    // material nodes
-
-    RawNode,
-    SpriteNode,
-    PhongNode,
-    StandardNode,
     MeshStandardNode,
-
-    // materials
-
-    NodeMaterial,
-    SpriteNodeMaterial,
-    PhongNodeMaterial,
-    StandardNodeMaterial,
     MeshStandardNodeMaterial,
-
-    // post-processing
-
-    NodePostProcessing
-
+    Node,
+    NodeBuilder,
+    NodeFrame,
+    NodeLib,
+    NodeMaterial,
+    NodePostProcessing,
+    NodeUniform,
+    NodeUtils,
+    NoiseNode,
+    NormalMapNode,
+    NormalNode,
+    OperatorNode,
+    PhongNode,
+    PhongNodeMaterial,
+    PositionNode,
+    PropertyNode,
+    RawNode,
+    ReflectNode,
+    ReflectorNode,
+    ResolutionNode,
+    RoughnessToBlinnExponentNode,
+    RTTNode,
+    ScreenNode,
+    ScreenUVNode,
+    SpriteNode,
+    SpriteNodeMaterial,
+    StandardNode,
+    StandardNodeMaterial,
+    StructNode,
+    SwitchNode,
+    TempNode,
+    TextureCubeNode,
+    TextureCubeUVNode,
+    TextureNode,
+    TimerNode,
+    UVNode,
+    UVTransformNode,
+    VarNode,
+    Vector2Node,
+    Vector3Node,
+    Vector4Node,
+    VelocityNode
 } from './Nodes.js';
 
 // core
