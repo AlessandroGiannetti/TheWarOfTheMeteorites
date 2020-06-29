@@ -12,6 +12,7 @@ Alessandro Giannetti - Edoardo Bini - Marco Ferraro
 Before going into the technical details of the project, we wanted to warn that it will not work correctly if loaded using GitHub pages on Google Chrome.
 There seems to be a problem with loading the model from the folder "Spaceships". The returned error on the console is "infinity% loaded" and this seems to block the game.
 Ultimately, this looks to be a bug of some sort, for which we have no control over. Therefore, we suggest running the game on Mozilla Firefox.
+
 *As a final remark, if the project is downloaded and run locally, it will work on all Browsers.*
 
 
