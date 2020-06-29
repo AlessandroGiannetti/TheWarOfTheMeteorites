@@ -1,5 +1,5 @@
 # The War of the Meteorites
-Final Project-Sapienza 
+Interactive Graphics - Final Project
 A.Y. 2018/2019
 
 
