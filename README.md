@@ -1,4 +1,4 @@
-# Final Project IG - The War of the Meteorites
+# The War of the Meteorites
 Final Project-Sapienza 
 A.Y. 2018/2019
 
